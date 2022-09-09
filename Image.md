@@ -103,15 +103,28 @@
 - **SHELL** -> Dockerfile'ın komutları işleyeceği shell'in hangisi olduğunu belirtiriz. Linux için varsayılan shell ["/bin/sh", "-c"],Windows için ["cmd", "/S", "/C"]. Bunları SHELL talimatı ile değiştirebiliriz. 
   - Ör: SHELL ["powershell", "-command"]
 
+### Multi-Stage Build
 
+![](https://res.cloudinary.com/practicaldev/image/fetch/s--7-CASre---/c_imagga_scale,f_auto,fl_progressive,h_900,q_auto,w_1600/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ku5v8mzocm3wo2z0z8al.png)
 
+	
+- Multi-stage build özelliği bizim imaj yaratma aşamasını kademelere bölmemizi ve ilk kademede yarattığımız imaj içerisindeki dosyaları bir sonraki kademede oluşturacağımız imaja kopyalayabilmemize imkan sağlıyor. Bu sayede nihai imaj boyutumuzun küçülmesine imkan tanıyor.
+- Dockerfile dosyasındaki her bir satır için image’de bir katman oluşturulmaktadır.Multistage Build mantığı Dockerfile dosyalarında birden fazla ‘FROM’ etiketi ile birden fazla base image tasarlanmasına dayanmaktadır
+- Her bir ‘FROM’ talimatı farklı bir katmanda değerlendirilecektir ve önceki ‘FROM’ talimatlarını ezecektir. Böylece üretilecek image’de, tüm ‘FROM’ yükünü göz ardı ederek istediğiniz bir noktada belirli çıktıları kopyalayıp esas kabul edebilirsiniz. Böylece ilgili image’in; lüzumsuz katmanlardan, o katmanların barındırdığı imagelerden arındırılmış olmasından dolayı boyutu küçülecektir.
 
+![dockerfile_image10](https://user-images.githubusercontent.com/98760765/182618440-2c2596c1-e217-4ef5-a37c-4f2d5871efc3.png)
 
-
-
-
-
-
-
-
+- Yukarıda göründüğü üzere Dockerfile da birden fazla ‘FROM’ talimatı kullanarak uygulamanın derlenmesi için gerekli olan daha büyük boyutlu alpine image' ı yerine uygulamanın derlenmiş halinin bulunduğu ve içerisinde daha küçük boyutlu bizim ihtiyacımız karşılayabilecek bir alphine imajı içeren yeni bir image oluşturulmuştur. Bu sayede son image boyutumuz önemli ölçüde azalmıştır.
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
