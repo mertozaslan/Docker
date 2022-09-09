@@ -25,6 +25,26 @@
 - Tüm katmanlar ayrı ayrı saklanmasına rağmen hepsini bir arada görmemizi Union File System sağlar.
 - Image’lar katmanlar şeklinde organize edildiği için Imaj'da meydana gelecek değişikliklerde Image’ın güncellenmesi sadece belirli katmanları etkileyeceğinden imaj’ların güncellenme maliyetleri minimum düzeydedir. 
 
+### Image Komutları
+- **`docker image --help`**  ->  image bileşeni ile kullanabileceğimiz komutları görebiliriz.
+- Kullanımı ` docker image COMMAND ` formatındadır.
+- **`docker image ls`**  -> Sistemdeki mevcut Image’leri listeler.
+- **`docker image build `**  -> Dockerfile üzerinden yeni Image’ler oluşturur.
+	- **`docker image build -t <image-name> .`**  -> Dockerfile yazılıktan sonra image build işlemini gerçekleştirir. Burada ki `-t` options’u oluşturulacak image’in tag’ini belirler ve bilindiği üzere image’lerde isimler oldukça önemlidir.
+	- **`docker image build -t <image-name> -f <dockerfile-name> .`** -> Farklı bir Dockerfile'dan imaj build eder. Eğer ki oluşturduğunuz Dockerfile dosyasının adını `Dockerfile ` olarak kaydederseniz özel olarak -f ile <dockerfile-name> belirtilmesine gerek kalmaz.
+- **`docker image rm <ImageID>`** -> ID'si verilen Image'i siler.
+- **`docker image prune -a`** ->Çalışmayan tüm image’leri siler.
+- **`docker image pull <ImageName>`** -> komutu sayesinde local sistemimize bir imajı çekeriz
+  - Tag belirtmediğimiz müddetçe default olarak `latest` tag'ı kullanılır.
+- **`docker image push <Image>`** -> komutu ile localdeki istediğimiz image'i hub'a pushlayabiliriz
+  - Localde oluşturduğumuz bir Docker imajını hub'a göndermek için öncelikle CLI'da login olmamız gerekir
+  - **`docker login`** -> komutu ile login olabiliriz.
+- **`docker image history <ImageName>`** komutu ile image'in geçmişini görebiliriz. İçerisindeki tüm katmanlara bakabiliriz.
+- **`docker save <LocalImage> -o <filename>.tar`** -> komutu ile sistemde bulunan bir image'i tar dosyası olarak kaydedebiliyoruz.
+   - Buradaki `-o` (output) parametresidir.
+   - **docker save** kullanımı genellikle internet erişimi bulunmayan ortamlar içerisinde kullanılır.
+- **`docker load -i <TarFile>`** -> komutu ile sistemde tar dosyası olarak bulunan image'i sisteme yükleyebiliyoruz.
+
 ## DockerFile
 - Bilindiği üzere  DockerHub gerek official (Ubuntu, Nginx, Redis, vb) gerekse de bu Image’lardan türetilen ve farklı özellikler barındıran birçok farklı ve çok faydalı Image içermektedir. Bu Image’lar ihtiyaçlarımızı çok büyük oranda karşılasa da kısa sürede gerek official gerekse de diğer repository’lerdeki Image’ları özelleştirme ihtiyacı ortaya çıkmaktadır. Yeni Image oluşturma işlemini ise Dockerfile dosyaları sayesinde yaparız.
 - Dockerfile kendi özgü kuralları olan bir dille yazılan ve bizlerin Docker Image'leri oluşturmamızı sağlayan dosyalardır.
@@ -33,6 +53,8 @@
 - Dockerfile dosyası oluşturulurken default "Dockerfile" şeklinde oluşturulur. Dockerfile.new, Dockerfile.env, Dockerfile.prod gibi örnekler ile aynı dizinde birden fazla Dockerfile oluşturulabilir.
 - Docker, Dockerfile dosyasında bulunan komutları sırayla tek tek çalıştırır. 
 - Her komut yeni bir katman oluşturur ve Docker build sonunda elimizde uygulamaya ait Docker Image oluşur . Docker Image'den container oluşturarak uygulamayı ayağa kaldırabiliriz.
+
+
 
 ### DockerFile Parametreleri
 
